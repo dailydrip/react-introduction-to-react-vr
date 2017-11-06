@@ -18,7 +18,6 @@ export default class WelcomeToVR extends React.Component {
 
   componentDidMount() {
     console.log("componentDidMount");
-    this.animatedValue.setValue(0);
     Animated.timing(this.animatedValue, {
       duration: 500,
       toValue: 100,
