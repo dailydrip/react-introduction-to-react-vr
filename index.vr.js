@@ -1,7 +1,33 @@
 import React from "react";
-import { AppRegistry, asset, Pano, Text, View, Model } from "react-vr";
+import {
+  AppRegistry,
+  asset,
+  Pano,
+  Text,
+  View,
+  Model,
+  Image,
+  Animated
+} from "react-vr";
 
 export default class WelcomeToVR extends React.Component {
+  constructor(props) {
+    super(props);
+    this.animatedValue = new Animated.Value(0);
+  }
+
+  componentDidMount() {
+    console.log("componentDidMount");
+    this.animatedValue.setValue(0);
+    Animated.timing(this.animatedValue, {
+      duration: 500,
+      toValue: 100,
+      delay: 3000
+    }).start(() => {
+      console.log("Animation finished");
+    });
+  }
+
   render() {
     return (
       <View>
@@ -17,9 +43,24 @@ export default class WelcomeToVR extends React.Component {
               {
                 translate: [10, -10, -50]
               },
-              { scale: 3 },
-              { rotateY: -30 }
+              { scale: 3 }
             ]
+          }}
+        />
+        <Animated.Image
+          style={{
+            width: 200,
+            height: 200,
+            transform: [
+              {
+                translate: [-250, 250, -500]
+              },
+              { scale: 0.5 },
+              { translateY: this.animatedValue }
+            ]
+          }}
+          source={{
+            uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png"
           }}
         />
         <Text
