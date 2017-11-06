@@ -18,10 +18,11 @@ export default class WelcomeToVR extends React.Component {
 
   componentDidMount() {
     console.log("componentDidMount");
-    Animated.timing(this.animatedValue, {
-      duration: 500,
-      toValue: 100,
-      delay: 3000
+    Animated.spring(this.animatedValue, {
+      duration: 800,
+      friction: 1,
+      tension: 5,
+      toValue: 150
     }).start(() => {
       console.log("Animation finished");
     });
