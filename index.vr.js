@@ -18,13 +18,20 @@ export default class WelcomeToVR extends React.Component {
 
   componentDidMount() {
     console.log("componentDidMount");
-    Animated.spring(this.animatedValue, {
-      duration: 800,
-      friction: 1,
-      tension: 5,
-      toValue: 150
-    }).start(() => {
-      console.log("Animation finished");
+    Animated.sequence([
+      Animated.timing(this.animatedValue, {
+        duration: 800,
+        toValue: 150,
+        delay: 3000
+      }),
+      Animated.spring(this.animatedValue, {
+        duration: 800,
+        friction: 1,
+        tension: 5,
+        toValue: 250
+      })
+    ]).start(() => {
+      console.log("Sequence of two animations finished.");
     });
   }
 
@@ -63,22 +70,21 @@ export default class WelcomeToVR extends React.Component {
             uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png"
           }}
         />
-        <Text
+        <Animated.Text
           style={{
-            backgroundColor: "#777879",
-            fontSize: 15,
-            fontWeight: "100",
-            layoutOrigin: [0.5, 0.5],
-            paddingLeft: 3.2,
-            marginLeft: 5,
-            paddingRight: 0.2,
-            textAlign: "center",
-            textAlignVertical: "center",
-            transform: [{ translate: [60, 300, -700] }]
+            width: 200,
+            height: 200,
+            transform: [
+              {
+                translate: [-250, 250, -500]
+              },
+              { scale: 0.5 },
+              { translateY: this.animatedValue }
+            ]
           }}
         >
           hello react-vr
-        </Text>
+        </Animated.Text>
       </View>
     );
   }
