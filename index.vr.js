@@ -1,14 +1,13 @@
 import React from "react";
 import {
+  Animated,
   AppRegistry,
-  asset,
+  Model,
   Pano,
   Text,
   View,
-  Model,
-  Image,
-  Animated,
-  VrButton
+  VrButton,
+  asset
 } from "react-vr";
 
 export default class WelcomeToVR extends React.Component {
@@ -39,25 +38,27 @@ export default class WelcomeToVR extends React.Component {
     return (
       <View>
         <Pano source={asset("eiffel_tower.jpg")} />
-        <Model
-          source={{
-            obj: asset("astronaut.obj"),
-            mtl: asset("astronaut.mtl"),
-            texture: asset("Astronaut_BaseColor.jpg")
-          }}
+        <Animated.View
           style={{
             transform: [
               {
-                translate: [10, -10, -50]
+                translate: [220, -10, -50]
               },
+              { translateY: this.animatedValue },
               { scale: 3 }
             ]
           }}
-        />
+        >
+          <Model
+            source={{
+              obj: asset("astronaut.obj"),
+              mtl: asset("astronaut.mtl"),
+              texture: asset("Astronaut_BaseColor.jpg")
+            }}
+          />
+        </Animated.View>
         <VrButton
           onClick={() => this.animate()}
-          onEnter={() => this.animate()}
-          onExit={() => this.animate()}
           style={{
             transform: [{ translate: [50, 250, -500] }]
           }}
