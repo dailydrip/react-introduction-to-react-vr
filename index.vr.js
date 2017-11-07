@@ -7,7 +7,8 @@ import {
   View,
   Model,
   Image,
-  Animated
+  Animated,
+  VrButton
 } from "react-vr";
 
 export default class WelcomeToVR extends React.Component {
@@ -16,13 +17,12 @@ export default class WelcomeToVR extends React.Component {
     this.animatedValue = new Animated.Value(0);
   }
 
-  componentDidMount() {
-    console.log("componentDidMount");
+  animate = () => {
+    this.animatedValue.setValue(0);
     Animated.sequence([
       Animated.timing(this.animatedValue, {
         duration: 800,
-        toValue: 150,
-        delay: 3000
+        toValue: 150
       }),
       Animated.spring(this.animatedValue, {
         duration: 800,
@@ -33,7 +33,7 @@ export default class WelcomeToVR extends React.Component {
     ]).start(() => {
       console.log("Sequence of two animations finished.");
     });
-  }
+  };
 
   render() {
     return (
@@ -54,6 +54,16 @@ export default class WelcomeToVR extends React.Component {
             ]
           }}
         />
+        <VrButton
+          onClick={() => this.animate()}
+          onEnter={() => this.animate()}
+          onExit={() => this.animate()}
+          style={{
+            transform: [{ translate: [50, 250, -500] }]
+          }}
+        >
+          <Text style={{ color: "gray", fontSize: 40 }}>Animate</Text>
+        </VrButton>
         <Animated.Image
           style={{
             width: 200,
