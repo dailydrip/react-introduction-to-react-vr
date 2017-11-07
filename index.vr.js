@@ -1,7 +1,40 @@
 import React from "react";
-import { AppRegistry, asset, Pano, Text, View, Model } from "react-vr";
+import {
+  AppRegistry,
+  asset,
+  Pano,
+  Text,
+  View,
+  Model,
+  Image,
+  Animated
+} from "react-vr";
 
 export default class WelcomeToVR extends React.Component {
+  constructor(props) {
+    super(props);
+    this.animatedValue = new Animated.Value(0);
+  }
+
+  componentDidMount() {
+    console.log("componentDidMount");
+    Animated.sequence([
+      Animated.timing(this.animatedValue, {
+        duration: 800,
+        toValue: 150,
+        delay: 3000
+      }),
+      Animated.spring(this.animatedValue, {
+        duration: 800,
+        friction: 1,
+        tension: 5,
+        toValue: 250
+      })
+    ]).start(() => {
+      console.log("Sequence of two animations finished.");
+    });
+  }
+
   render() {
     return (
       <View>
@@ -17,27 +50,41 @@ export default class WelcomeToVR extends React.Component {
               {
                 translate: [10, -10, -50]
               },
-              { scale: 3 },
-              { rotateY: -30 }
+              { scale: 3 }
             ]
           }}
         />
-        <Text
+        <Animated.Image
           style={{
-            backgroundColor: "#777879",
-            fontSize: 15,
-            fontWeight: "100",
-            layoutOrigin: [0.5, 0.5],
-            paddingLeft: 3.2,
-            marginLeft: 5,
-            paddingRight: 0.2,
-            textAlign: "center",
-            textAlignVertical: "center",
-            transform: [{ translate: [60, 300, -700] }]
+            width: 200,
+            height: 200,
+            transform: [
+              {
+                translate: [-250, 250, -500]
+              },
+              { scale: 0.5 },
+              { translateY: this.animatedValue }
+            ]
+          }}
+          source={{
+            uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png"
+          }}
+        />
+        <Animated.Text
+          style={{
+            width: 200,
+            height: 200,
+            transform: [
+              {
+                translate: [-250, 250, -500]
+              },
+              { scale: 0.5 },
+              { translateY: this.animatedValue }
+            ]
           }}
         >
           hello react-vr
-        </Text>
+        </Animated.Text>
       </View>
     );
   }
