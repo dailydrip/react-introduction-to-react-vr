@@ -61,8 +61,9 @@ export default class WelcomeToVR extends React.Component {
             flexDirection: "column"
           }}
         >
-          {this.getButton("Paris", () => {})}
-          {this.getButton("New York", () => {})}
+          {this.getButton("Paris", () => this.setState({ location: "paris" }))}
+          {this.getButton("New York", () =>
+            this.setState({ location: "new york" }))}
         </View>
         <Pano source={asset(this.getPhoto())} />
       </View>
