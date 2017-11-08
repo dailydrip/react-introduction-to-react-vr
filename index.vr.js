@@ -13,15 +13,11 @@ import {
 export default class WelcomeToVR extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { location: "paris" };
+    this.state = { location: "eiffel_tower" };
   }
 
   getPhoto = () => {
-    if (this.state.location == "new york") {
-      return "new_york.jpg";
-    } else if (this.state.location == "paris") {
-      return "eiffel_tower.jpg";
-    }
+    return `${this.state.location}.jpg`;
   };
 
   getButton = (name, clickFunction) => {
@@ -33,7 +29,7 @@ export default class WelcomeToVR extends React.Component {
           borderColor: "green",
           borderWidth: 0.1,
           width: 8,
-          height: 1,
+          height: 1.3,
           color: "black",
           margin: 20,
           transform: [{ scale: 30 }, { translate: [0, 10, -30] }]
@@ -61,9 +57,14 @@ export default class WelcomeToVR extends React.Component {
             flexDirection: "column"
           }}
         >
-          {this.getButton("Paris", () => this.setState({ location: "paris" }))}
+          {this.getButton("Paris", () =>
+            this.setState({ location: "eiffel_tower" }))}
           {this.getButton("New York", () =>
-            this.setState({ location: "new york" }))}
+            this.setState({ location: "new_york" }))}
+          {this.getButton("São Paulo", () =>
+            this.setState({ location: "sao_paulo" }))}
+          {this.getButton("London Eye", () =>
+            this.setState({ location: "london_eye" }))}
         </View>
         <Pano source={asset(this.getPhoto())} />
       </View>
